@@ -1,6 +1,6 @@
 # To hit type "Hit" 
 # To stay type anything
-#hit 과 stay 를 명확히 구분해야 할 것 같아요.
+#hit 과 stay 를 명확히 구분해야 할 것 같아요. 의견 부탁
 
 from random import randint
 import time
