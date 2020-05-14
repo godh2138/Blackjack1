@@ -1,4 +1,3 @@
-
 from random import randint
 import time
 from tkinter import *
@@ -10,7 +9,7 @@ global newDeck
 root=Tk()
 root.wm_title("BlackJack")
 #Creating a window
-root.minsize(400,500)
+root.minsize(400,500) #게임의 크기를 더 크게 수정
 
 #Creating 2 frames
 frameup=Frame(root,width=300,height=480)
@@ -24,7 +23,7 @@ text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="Hit",  activebackground="green")
+hitbutton=Button(framedown,text="Hit",  activebackground="green") #사이의 공백을 더 주자
 hitbutton.pack(side=LEFT)
 
 staybutton= Button(framedown,text="Stay",  activebackground="green")
@@ -56,7 +55,7 @@ class deck(object):
 def cardValue(card):
 	global playerTotal
 	cardsDict={"A":1 , 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, "J":10, "Q":10, "K":10 }
-	if card=="A":
+	if card=="A": #ACE의 값이 10이 될지 1이될지 판단해주는 프로그램 ( 이것을 우리가 직접 조정할 수 있다면?)
 		if playerTotal<=10:
 			return 11
 		else:
