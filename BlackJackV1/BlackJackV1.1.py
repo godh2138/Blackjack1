@@ -7,9 +7,9 @@ import sys
 
 global newDeck
 root=Tk()
-root.wm_title("BlackJack")
+root.wm_title("블랙잭") #한글로 제목 수정
 #Creating a window
-root.minsize(400,500) #게임의 크기를 더 크게 수정
+root.minsize(900,1000) #사이즈 수정필요
 
 #Creating 2 frames
 frameup=Frame(root,width=300,height=480)
@@ -23,7 +23,7 @@ text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="Hit",  activebackground="green") #사이의 공백을 더 주자
+hitbutton=Button(framedown,text="Hit",  activebackground="green") #�궗�씠�쓽 怨듬갚�쓣 �뜑 二쇱옄
 hitbutton.pack(side=LEFT)
 
 staybutton= Button(framedown,text="Stay",  activebackground="green")
@@ -55,7 +55,7 @@ class deck(object):
 def cardValue(card):
 	global playerTotal
 	cardsDict={"A":1 , 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, "J":10, "Q":10, "K":10 }
-	if card=="A": #ACE의 값이 10이 될지 1이될지 판단해주는 프로그램 ( 이것을 우리가 직접 조정할 수 있다면?)
+	if card=="A": #ACE�쓽 媛믪씠 10�씠 �맆吏� 1�씠�맆吏� �뙋�떒�빐二쇰뒗 �봽濡쒓렇�옩 ( �씠寃껋쓣 �슦由ш� 吏곸젒 議곗젙�븷 �닔 �엳�떎硫�?)
 		if playerTotal<=10:
 			return 11
 		else:
