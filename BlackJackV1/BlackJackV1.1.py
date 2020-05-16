@@ -9,10 +9,11 @@ global newDeck
 root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
 #Creating a window
-root.minsize(900,1000) #사이즈 수정필요
+root.minsize(400,400) #사이즈 수정필요
+root.resizable(False, False) #게임 사이즈 변경 불가
 
 #Creating 2 frames
-frameup=Frame(root,width=300,height=480)
+frameup=Frame(root,width=400,height=440)
 frameup.pack()
 
 framedown =Frame(root,width=400,height=100)
@@ -23,7 +24,7 @@ text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="Hit",  activebackground="green") #�궗�씠�쓽 怨듬갚�쓣 �뜑 二쇱옄
+hitbutton=Button(framedown,text="Hit",  activebackground="green") #게임의 배경색도 수정.
 hitbutton.pack(side=LEFT)
 
 staybutton= Button(framedown,text="Stay",  activebackground="green")
