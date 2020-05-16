@@ -1,8 +1,7 @@
 # To hit type "Hit" 
 # To stay type anything
-#hit �� stay �� ��Ȯ�� �����ؾ� �� �� ���ƿ�. �ǰ� ��Ź
-# 숫자가 아닌 카드그림을 이용해 하는건 어떨까요?
-# 배팅시스템을 추가해보는건 어떨까요?
+#hit �� stay �� ��Ȯ�� �����ؾ� �� �� ���ƿ�. �ǰ� ��Ź
+
 from random import randint
 import time
 
