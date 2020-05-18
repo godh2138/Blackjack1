@@ -24,13 +24,13 @@ text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="Hit",  activebackground="green") #게임의 배경색도 수정.
+hitbutton=Button(framedown,text="히트",  activebackground="green") #게임의 배경색도 수정.
 hitbutton.pack(side=LEFT)
 
-staybutton= Button(framedown,text="Stay",  activebackground="green")
+staybutton= Button(framedown,text="스테이",  activebackground="green")
 staybutton.pack(side=LEFT)
 
-replaybutton=Button(framedown,text='Replay',  activebackground="green")
+replaybutton=Button(framedown,text='다시하기',  activebackground="green")
 replaybutton.pack(side=LEFT)
 
 
@@ -39,7 +39,7 @@ class deck(object):
 	cardsDict={1:"A", 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:"J", 12:"Q", 13:"K" }
 
 	def __init__(self):
-		text.insert(END,"\nDeck was shuffled!")
+		text.insert(END,"\n카드들이 모두 섞였습니다.")
 
 	def getCard(self):
 		global deck
@@ -56,7 +56,7 @@ class deck(object):
 def cardValue(card):
 	global playerTotal
 	cardsDict={"A":1 , 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, "J":10, "Q":10, "K":10 }
-	if card=="A": #ACE�쓽 媛믪씠 10�씠 �맆吏� 1�씠�맆吏� �뙋�떒�빐二쇰뒗 �봽濡쒓렇�옩 ( �씠寃껋쓣 �슦由ш� 吏곸젒 議곗젙�븷 �닔 �엳�떎硫�?)
+	if card=="A": #A를 10으로 11으로 할지 1로 할지 맨처음 게임 시작할떄 선택?
 		if playerTotal<=10:
 			return 11
 		else:
@@ -74,11 +74,11 @@ def hit(event):
 		card=newDeck.getCard()
 		playerTotal=playerTotal+ cardValue(card)
 		
-		text.insert(END,"\nYour Card: "+str(card))
+		text.insert(END,"\n당신의 카드: "+str(card))
 		
 		if playerTotal >21:
 			
-			text.insert(END,"\nYou Lose! \nPress Replay to play again")
+			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기 버튼을 누르세요")
 			flag1=False
 		elif playerTotal==21:
 			#give control to the computer, if he busts you win
@@ -98,7 +98,7 @@ def action():
 	global flag1
 	global flag2
 	
-	playerAction=text.insert(END,"\nDo you hit or stay?")
+	playerAction=text.insert(END,"\n히트 아니면 스테이?")
 
 
 def stay(event):
@@ -110,30 +110,30 @@ def stay(event):
 
 	if flag1:
 		
-		text.insert(END,"\nDealer's Second Card: "+str(card))
+		text.insert(END,"\n딜러의 2번째 카드: "+str(card))
 		while(computerTotal<21):
 			card=newDeck.getCard()
 			computerTotal+=cardValue(card)
 			
 			
-			text.insert(END,"\nDealer's Card: "+str(card))
+			text.insert(END,"\n딜러의 카드: "+str(card))
 			
 			if computerTotal>playerTotal and computerTotal<21:
 				
-				text.insert(END,"\nYou lose!\nPress Replay to play again")
+				text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 				break
 			
 			if computerTotal==21:
 				if flag2:
 					
-					text.insert(END,"\nIts a draw!\nPress Replay to play again")
+					text.insert(END,"\n무승부!\n다시하려면 다시하기 버튼을 누르세요")
 				else:
 					
-					text.insert(END,"\nYou Lose!\nPress Replay to play again")
+					text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 
 			elif computerTotal> 21:
 				
-				text.insert(END,"\nYou Win!\nPress Replay to play again")
+				text.insert(END,"\n당신은 승리했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 
 def main():
 	global newDeck
@@ -143,28 +143,28 @@ def main():
 	global playerTotal
 	global computerTotal
 	text.delete('1.0',END)
-	text.insert(END,"\nShuffling Deck...")
+	text.insert(END,"\n카드 섞는중...")
 	
 	newDeck=deck()
 	flag1, flag2= True, False
 	playerTotal, computerTotal=0,0
 
 	
-	text.insert(END,"\nPlayer gets following cards")
+	text.insert(END,"\n당신이 얻은 카드들은..")
 	card=newDeck.getCard()
 	
 
-	text.insert(END,"\nFirst card: "+ str(card))
+	text.insert(END,"\n1번째 카드: "+ str(card))
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
 	
 
-	text.insert(END,"\nSecond Card: "+ str(card))
+	text.insert(END,"\n2번째 카드: "+ str(card))
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
 	
 
-	text.insert(END,"\nDealer's First Card: "+ str(card))
+	text.insert(END,"\n딜러의 1번째 카드: "+ str(card))
 	computerTotal+= cardValue(card)
 	card=newDeck.getCard()
 	computerTotal+= cardValue(card)
