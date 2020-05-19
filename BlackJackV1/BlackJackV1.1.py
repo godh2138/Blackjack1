@@ -7,10 +7,10 @@ import sys
 
 global newDeck
 root=Tk()
-root.wm_title("블랙잭") #한글로 제목 수정
+root.wm_title("블랙잭") #�븳湲�濡� �젣紐� �닔�젙
 #Creating a window
-root.minsize(400,400) #사이즈 수정필요
-root.resizable(False, False) #게임 사이즈 변경 불가
+root.minsize(400,400) #�궗�씠利� �닔�젙�븘�슂
+root.resizable(False, False) #寃뚯엫 �궗�씠利� 蹂�寃� 遺덇�
 
 #Creating 2 frames
 frameup=Frame(root,width=400,height=440)
@@ -24,7 +24,7 @@ text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="히트",  activebackground="green") #게임의 배경색도 수정.
+hitbutton=Button(framedown,text="히트",  activebackground="green") #寃뚯엫�쓽 諛곌꼍�깋�룄 �닔�젙.
 hitbutton.pack(side=LEFT)
 
 staybutton= Button(framedown,text="스테이",  activebackground="green")
@@ -39,7 +39,7 @@ class deck(object):
 	cardsDict={1:"A", 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:"J", 12:"Q", 13:"K" }
 
 	def __init__(self):
-		text.insert(END,"\n카드들이 모두 섞였습니다.")
+		text.insert(END,"\n카드가 섞였습니다.")
 
 	def getCard(self):
 		global deck
@@ -53,16 +53,26 @@ class deck(object):
 
 
 
-def cardValue(card):
+def user_cardValue(card):
 	global playerTotal
 	cardsDict={"A":1 , 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, "J":10, "Q":10, "K":10 }
-	if card=="A": #A를 10으로 11으로 할지 1로 할지 맨처음 게임 시작할떄 선택?
-		if playerTotal<=10:
-			return 11
-		else:
+	if card=="A": #플레이어에게 A카드를 받으면 1 과 11 중에 선택하게끔 수정
+		text.insert(END,"\n1과10중에고르세요.")
+		choice=input("1 or 10")
+		if choice==1:
 			return 1
-	else:
-		return cardsDict[card]
+		elif choice==11:
+			return 11
+		#if playerTotal<=10:
+			#return 11
+		#else:
+			#return 1
+	
+def computer_cardValue(card):
+	global playerTotal
+	cardsDict={"A":1 , 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, "J":10, "Q":10, "K":10 }
+	
+	return cardsDict[card]	
 
 
 
@@ -72,13 +82,13 @@ def hit(event):
 		global flag1
 		global flag2
 		card=newDeck.getCard()
-		playerTotal=playerTotal+ cardValue(card)
+		playerTotal=playerTotal+ user_cardValue(card)
 		
-		text.insert(END,"\n당신의 카드: "+str(card))
+		text.insert(END,"\n플레이어의 카드: "+str(card))
 		
 		if playerTotal >21:
 			
-			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기 버튼을 누르세요")
+			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기를 누르세요")
 			flag1=False
 		elif playerTotal==21:
 			#give control to the computer, if he busts you win
@@ -98,13 +108,14 @@ def action():
 	global flag1
 	global flag2
 	
-	playerAction=text.insert(END,"\n히트 아니면 스테이?")
+	playerAction=text.insert(END,"\nhit, stay 중 선택하세요")
 
 
 def stay(event):
 	global flag1
 	global flag2
-	global cardValue
+	global user_cardValue
+	global computer_cardValue
 	global computerTotal
 	global card
 
@@ -113,27 +124,27 @@ def stay(event):
 		text.insert(END,"\n딜러의 2번째 카드: "+str(card))
 		while(computerTotal<21):
 			card=newDeck.getCard()
-			computerTotal+=cardValue(card)
+			computerTotal+=computer_cardValue(card)
 			
 			
 			text.insert(END,"\n딜러의 카드: "+str(card))
 			
 			if computerTotal>playerTotal and computerTotal<21:
 				
-				text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기 버튼을 누르세요")
+				text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기를 누르세요")
 				break
 			
 			if computerTotal==21:
 				if flag2:
 					
-					text.insert(END,"\n무승부!\n다시하려면 다시하기 버튼을 누르세요")
+					text.insert(END,"\n비겼습니다 /n 다시하려면 다시하기를 누르세요")
 				else:
 					
-					text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기 버튼을 누르세요")
+					text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기를 누르세요")
 
 			elif computerTotal> 21:
 				
-				text.insert(END,"\n당신은 승리했습니다!\n다시하려면 다시하기 버튼을 누르세요")
+				text.insert(END,"\n당신은 승리했습니다!\n다시하려면 다시하기를 누르세요")
 
 def main():
 	global newDeck
@@ -143,31 +154,31 @@ def main():
 	global playerTotal
 	global computerTotal
 	text.delete('1.0',END)
-	text.insert(END,"\n카드 섞는중...")
+	text.insert(END,"\n카드를 섞는중...")
 	
 	newDeck=deck()
 	flag1, flag2= True, False
 	playerTotal, computerTotal=0,0
 
 	
-	text.insert(END,"\n당신이 얻은 카드들은..")
+	text.insert(END,"\n플레이어가 받은 카드들..")
 	card=newDeck.getCard()
 	
 
-	text.insert(END,"\n1번째 카드: "+ str(card))
-	playerTotal=playerTotal+ cardValue(card)
+	text.insert(END,"\n1플레이어의 1번째 카드: "+ str(card))
+	playerTotal=playerTotal+ user_cardValue(card)
 	card=newDeck.getCard()
 	
 
-	text.insert(END,"\n2번째 카드: "+ str(card))
-	playerTotal=playerTotal+ cardValue(card)
+	text.insert(END,"\n2플레이어의 2번째 카드: "+ str(card))
+	playerTotal=playerTotal+ user_cardValue(card)
 	card=newDeck.getCard()
 	
 
 	text.insert(END,"\n딜러의 1번째 카드: "+ str(card))
-	computerTotal+= cardValue(card)
+	computerTotal+= computer_cardValue(card)
 	card=newDeck.getCard()
-	computerTotal+= cardValue(card)
+	computerTotal+= computer_cardValue(card)
 
 	action()
 
