@@ -16,21 +16,21 @@ root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
 
 #게임내 폰트및 크기, 버튼 폰트및 크기 수정
-game_font = tkinter.font.Font(family="맑은 고딕", size=18)
-button_font = tkinter.font.Font(family="궁서체", size=20)
+game_font = tkinter.font.Font(family="맑은 고딕", size=10)
+button_font = tkinter.font.Font(family="궁서체", size=10)
 
 #Creating a window
 
-root.resizable(False, False) #게임 사이즈 변경 불가
-root.minsize(900,400) #사이즈 수정필요
+#root.resizable(False, False) #게임 사이즈 변경 불가
+root.minsize(300,150) #사이즈 수정필요
 
 
 #Creating 2 frames
 
-frameup=Frame(root,width=400,height=200)
+frameup=Frame(root,width=300,height=100)
 frameup.pack()
 
-framedown =Frame(root,width=400,height=100)
+framedown =Frame(root,width=300,height=100)
 framedown.pack()
 #Creating text boxe in frameup
 
