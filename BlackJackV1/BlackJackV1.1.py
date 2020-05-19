@@ -1,36 +1,54 @@
 from random import randint
 import time
 from tkinter import *
+import tkinter.font
 import os
 import sys
 
 
+
+#시작메뉴 추가
+#의견 배팅 시스템 추가
+#게임 여러 기능 추가(PUSH, INSURANCE)
+
 global newDeck
 root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
+
+#게임내 폰트및 크기, 버튼 폰트및 크기 수정
+game_font = tkinter.font.Font(family="맑은 고딕", size=18)
+button_font = tkinter.font.Font(family="궁서체", size=20)
+
 #Creating a window
-root.minsize(400,400) #사이즈 수정필요
+
 root.resizable(False, False) #게임 사이즈 변경 불가
+root.minsize(900,400) #사이즈 수정필요
+
 
 #Creating 2 frames
-frameup=Frame(root,width=400,height=440)
+
+frameup=Frame(root,width=400,height=200)
 frameup.pack()
 
 framedown =Frame(root,width=400,height=100)
 framedown.pack()
 #Creating text boxe in frameup
 
-text=Text(frameup,width=60,height=30,bg='coral',fg='black')
+#배경색 변경
+text=Text(frameup,bg='black',fg='white',font=game_font)
 text.pack(fill=X)
 
 
-hitbutton=Button(framedown,text="히트",  activebackground="green") #게임의 배경색도 수정.
+
+#버튼 폰트및 글자크기, 버튼크기 변경
+hitbutton=Button(framedown,text="Hit",  activebackground="green", font=button_font, padx=100) 
 hitbutton.pack(side=LEFT)
 
-staybutton= Button(framedown,text="스테이",  activebackground="green")
+
+staybutton= Button(framedown,text="Stay",  activebackground="green", font=button_font, padx=100)
 staybutton.pack(side=LEFT)
 
-replaybutton=Button(framedown,text='다시하기',  activebackground="green")
+replaybutton=Button(framedown,text='Replay',  activebackground="green", font=button_font, padx=100)
 replaybutton.pack(side=LEFT)
 
 
