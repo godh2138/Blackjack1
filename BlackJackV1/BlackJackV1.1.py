@@ -1,9 +1,15 @@
 from random import randint
 import time
 from tkinter import *
+import tkinter.font
 import os
 import sys
 
+
+
+#시작메뉴 추가
+#의견 배팅 시스템 추가
+#게임 여러 기능 추가(PUSH, INSURANCE)
 
 global newDeck
 root=Tk()
@@ -12,10 +18,10 @@ root.wm_title("블랙잭") #한글로 제목 수정
 root.minsize(900,1000) #사이즈 수정필요
 
 #Creating 2 frames
-frameup=Frame(root,width=300,height=480)
+frameup=Frame(root,width=800,height=960)
 frameup.pack()
 
-framedown =Frame(root,width=400,height=100)
+framedown =Frame(root,width=800,height=200)
 framedown.pack()
 #Creating text boxe in frameup
 
