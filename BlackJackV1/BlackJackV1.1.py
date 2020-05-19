@@ -16,8 +16,8 @@ root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
 
 #게임내 폰트및 크기, 버튼 폰트및 크기 수정
-game_font = tkinter.font.Font(family="맑은 고딕", size=10)
-button_font = tkinter.font.Font(family="궁서체", size=10)
+game_font = tkinter.font.Font(family="맑은 고딕", size=15)
+button_font = tkinter.font.Font(family="궁서체", size=15)
 
 #Creating a window
 
