@@ -23,7 +23,11 @@ framedown.pack()
 text=Text(frameup,width=60,height=30,bg='coral',fg='black')
 text.pack(fill=X)
 
-
+canvas=Canvas(root,width=300,height=300)
+canvas.pack()
+img=PhotoImage(file="C:\\Black.png")
+canvas.create_image(20,20,anchor=NW,image=img)
+mainloop()
 hitbutton=Button(framedown,text="히트",  activebackground="green") #寃뚯엫�쓽 諛곌꼍�깋�룄 �닔�젙.
 hitbutton.pack(side=LEFT)
 
