@@ -8,8 +8,8 @@ import sys
 
 
 #시작메뉴 추가
-#의견 배팅 시스템 추가
-#게임 여러 기능 추가(PUSH, INSURANCE)
+#배팅 시스템 추가
+#리플레이시 초기화 문제 수정필요
 
 global newDeck
 root=Tk()
@@ -30,13 +30,35 @@ root.minsize(300,150) #사이즈 수정필요
 frameup=Frame(root,width=300,height=150)
 frameup.pack()
 
+framecard=Frame(root,width=150,height=150)
+framecard.pack()
+
+
 framedown =Frame(root,width=300,height=150)
 framedown.pack()
+
 #Creating text boxe in frameup
 
 #배경색 변경
 text=Text(frameup,bg='black',fg='white',font=game_font)
 text.pack(fill=X)
+
+imageA=tkinter.PhotoImage(file="C:\\A.png")
+image2=tkinter.PhotoImage(file="C:\\2.png")
+image3=tkinter.PhotoImage(file="C:\\3.png")
+image4=tkinter.PhotoImage(file="C:\\4.png")
+image5=tkinter.PhotoImage(file="C:\\5.png")
+image6=tkinter.PhotoImage(file="C:\\6.png")
+image7=tkinter.PhotoImage(file="C:\\7.png")
+image8=tkinter.PhotoImage(file="C:\\8.png")
+image9=tkinter.PhotoImage(file="C:\\9.png")
+image10=tkinter.PhotoImage(file="C:\\10.png")
+imageJ=tkinter.PhotoImage(file="C:\\J.png")
+imageQ=tkinter.PhotoImage(file="C:\\Q.png")
+imageK=tkinter.PhotoImage(file="C:\\K.png")
+
+
+
 
 
 
@@ -106,6 +128,9 @@ def hit(event):
 			
 			action()
 
+
+
+
 def replay(event):
 	main()
 
@@ -153,6 +178,65 @@ def stay(event):
 				
 				text.insert(END,"\n당신은 승리했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 
+
+
+def cardpic(card):
+
+	if card == "A":
+		label=tkinter.Label(framecard,image=imageA)
+		label.pack()
+		
+	elif card == 2:
+		label=tkinter.Label(framecard,image=image2)
+		label.pack()
+
+	elif card == 3:
+		label=tkinter.Label(framecard,image=image3)
+		label.pack()
+
+	elif card == 4:
+		label=tkinter.Label(framecard,image=image4)
+		label.pack()
+
+	elif card == 5:
+		label=tkinter.Label(framecard,image=image5)
+		label.pack()
+
+	elif card == 6:
+		label=tkinter.Label(framecard,image=image6)
+		label.pack()
+
+	elif card == 7:
+		label=tkinter.Label(framecard,image=image7)
+		label.pack()
+
+	elif card == 8:
+		label=tkinter.Label(framecard,image=image8)
+		label.pack()
+
+	elif card == 9:
+		label=tkinter.Label(framecard,image=image9)
+		label.pack()
+
+	elif card == 10:
+		label=tkinter.Label(framecard,image=image10)
+		label.pack()
+
+	elif card == "J":
+		label=tkinter.Label(framecard,image=imageJ)
+		label.pack()
+
+	elif  card == "Q":
+		label=tkinter.Label(framecard,image=imageQ)
+		label.pack()
+
+	elif  card == "K":
+		label=tkinter.Label(framecard,image=imageK)
+		label.pack()
+
+
+
+
 def main():
 	global newDeck
 	global flag1
@@ -162,22 +246,24 @@ def main():
 	global computerTotal
 	text.delete('1.0',END)
 	text.insert(END,"\n카드 섞는중...")
+
 	
 	newDeck=deck()
 	flag1, flag2= True, False
 	playerTotal, computerTotal=0,0
 
 	
-	text.insert(END,"\n당신이 얻은 카드들은..")
 	card=newDeck.getCard()
+	cardpic(card)
 	
 
-	text.insert(END,"\n1번째 카드: "+ str(card))
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
+	cardpic(card)
+	
+	
 	
 
-	text.insert(END,"\n2번째 카드: "+ str(card))
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
 	
@@ -189,14 +275,13 @@ def main():
 
 	action()
 
-
 if __name__=='__main__':
 	main()
-#이미지 맨 밑에 삽입.
-image=tkinter.PhotoImage(file="C:\\Black.png")
+
+
+image=tkinter.PhotoImage(file="C:\\Black.gif")
 label=tkinter.Label(root,image=image)
 label.pack()
-
 
 
 
@@ -204,5 +289,9 @@ staybutton.bind("<Button-1>",stay)
 hitbutton.bind("<Button-1>",hit)
 replaybutton.bind("<Button-1>",replay)
 root.mainloop()
+
+
+
+
 
 
