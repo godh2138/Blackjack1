@@ -10,8 +10,7 @@ import sys
 
 #시작메뉴 추가
 #배팅 시스템 추가
-#리플레이시 초기화 문제 수정필요
-#그리드 레이아웃으로 전체 변경
+
 
 global newDeck
 root=Tk()
