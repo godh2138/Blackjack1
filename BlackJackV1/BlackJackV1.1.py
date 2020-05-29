@@ -1,17 +1,16 @@
 from random import randint
 import time
 from tkinter import *
-from PIL import Image
+#from PIL import Image
 import tkinter.font
 import os
 import sys
-
-
+from tkinter.constants import INSERT
+import tkinter.messagebox
+import ask
 
 #시작메뉴 추가
-#배팅 시스템 추가
-
-
+money=2000
 global newDeck
 root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
@@ -43,7 +42,7 @@ framedown.grid(row=2, column = 0)
 #배경색 변경
 text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
-
+'''
 imageA=tkinter.PhotoImage(file="C:\\A.png")
 image2=tkinter.PhotoImage(file="C:\\2.png")
 image3=tkinter.PhotoImage(file="C:\\3.png")
@@ -59,7 +58,7 @@ imageQ=tkinter.PhotoImage(file="C:\\Q.png")
 imageK=tkinter.PhotoImage(file="C:\\K.png")
 
 
-
+'''
 
 
 
@@ -73,8 +72,22 @@ staybutton.grid(row=0, column=1)
 
 replaybutton=Button(framedown,text='Replay',  activebackground="green", font=button_font, padx=100)
 replaybutton.grid(row=0, column=2)
+def Msgbox():
+	tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
+def Questionbox():
+	tkinter.messagebox.askquestion("질문", "godh2138@gmail.com 로 이메일 주세요.")
+	'''
+def moneydiscount():
+	global money
 
+	discount=100
+	return money-discount'''
+#규칙을 보여주는 팝업창 추가
+rule_button=Button(text="규칙을 보시겠습니까?",command=Msgbox)
+rule_button.grid(row=1,column=1)
 
+question_button=Button(root,text="궁금한점", width=15,command=Questionbox)
+question_button.grid(row=1,column=2)
 class deck(object):
 	deck={"A":4, 2:4, 3:4, 4:4, 5:4, 6:4, 7:4, 8:4, 9:4, 10:4, "J":4, "Q":4, "K":4}
 	cardsDict={1:"A", 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:"J", 12:"Q", 13:"K" }
@@ -105,138 +118,21 @@ def cardValue(card):
 	else:
 		return cardsDict[card]
 
-
-	#카드 사진저장
-def cardpic(card):
-
-	if card == "A":
-		label=Label(framecard,image=imageA)
-		label.grid(row=0, column = 0)
-		
-	elif card == 2:
-		label=Label(framecard,image=image2)
-		label.grid(row=0, column = 0)
-
-	elif card == 3:
-		label=Label(framecard,image=image3)
-		label.grid(row=0, column = 0)
-
-	elif card == 4:
-		label=Label(framecard,image=image4)
-		label.grid(row=0, column = 0)
-
-	elif card == 5:
-		label=Label(framecard,image=image5)
-		label.grid(row=0, column = 0)
-
-	elif card == 6:
-		label=Label(framecard,image=image6)
-		label.grid(row=0, column = 0)
-
-	elif card == 7:
-		label=Label(framecard,image=image7)
-		label.grid(row=0, column = 0)
-
-	elif card == 8:
-		label=Label(framecard,image=image8)
-		label.grid(row=0, column = 0)
-
-	elif card == 9:
-		label=Label(framecard,image=image9)
-		label.grid(row=0, column = 0)
-
-	elif card == 10:
-		label=Label(framecard,image=image10)
-		label.grid(row=0, column = 0)
-
-	elif card == "J":
-		label=Label(framecard,image=imageJ)
-		label.grid(row=0, column = 0)
-
-	elif  card == "Q":
-		label=Label(framecard,image=imageQ)
-		label.grid(row=0, column = 0)
-
-	elif  card == "K":
-		label=Label(framecard,image=imageK)
-		label.grid(row=0, column = 0)
-
-
-
-
-def cardpic1(card):
-
-	if card == "A":
-		label=Label(framecard, image=imageA)
-		label.grid(row=0, column = 1)
-		
-	elif card == 2:
-		label=Label(framecard,image=image2)
-		label.grid(row=0, column = 1)
-
-	elif card == 3:
-		label=Label(framecard,image=image3)
-		label.grid(row=0, column = 1)
-
-	elif card == 4:
-		label=Label(framecard,image=image4)
-		label.grid(row=0, column = 1)
-
-	elif card == 5:
-		label=Label(framecard,image=image5)
-		label.grid(row=0, column = 1)
-
-	elif card == 6:
-		label=Label(framecard,image=image6)
-		label.grid(row=0, column = 1)
-
-	elif card == 7:
-		label=Label(framecard,image=image7)
-		label.grid(row=0, column = 1)
-
-	elif card == 8:
-		label=Label(framecard,image=image8)
-		label.grid(row=0, column = 1)
-
-	elif card == 9:
-		label=Label(framecard,image=image9)
-		label.grid(row=0, column = 1)
-
-	elif card == 10:
-		label=Label(framecard,image=image10)
-		label.grid(row=0, column = 1)
-
-	elif card == "J":
-		label=Label(framecard,image=imageJ)
-		label.grid(row=0, column = 1)
-
-	elif  card == "Q":
-		label=Label(framecard,image=imageQ)
-		label.grid(row=0, column = 1)
-
-	elif  card == "K":
-		label=Label(framecard,image=imageK)
-		label.grid(row=0, column = 1)
-
-
-
-
-
-
-
 def hit(event):
 		global newDeck
 		global playerTotal
 		global flag1
 		global flag2
+		global money
 		card=newDeck.getCard()
 		playerTotal=playerTotal+ cardValue(card)
 		
 		text.insert(END,"\n당신의 카드: "+str(card))
 		
 		if playerTotal >21:
-			
-			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기 버튼을 누르세요")
+			money-=100
+			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기 버튼을 누르세요 남은 돈:")
+			text.insert(END,money)
 			flag1=False
 		elif playerTotal==21:
 			#give control to the computer, if he busts you win
@@ -305,6 +201,7 @@ def main():
 	global card
 	global playerTotal
 	global computerTotal
+	
 	text.delete('1.0',END)
 	text.insert(END,"\n카드 섞는중...")
 
@@ -315,13 +212,13 @@ def main():
 
 	
 	card=newDeck.getCard()
-	cardpic(card)
+
 	
 	
 
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
-	cardpic1(card)
+
 	
 	
 	
@@ -341,9 +238,9 @@ if __name__=='__main__':
 	main()
 
 
-image=tkinter.PhotoImage(file="C:\\Black.gif")
-label=tkinter.Label(root,image=image)
-label.grid(row = 4, column = 0)
+##image=tkinter.PhotoImage(file="C:\\Black.gif")
+#label=tkinter.Label(root,image=image)
+#label.grid(row = 4, column = 0)
 
 
 
@@ -351,9 +248,3 @@ staybutton.bind("<Button-1>",stay)
 hitbutton.bind("<Button-1>",hit)
 replaybutton.bind("<Button-1>",replay)
 root.mainloop()
-
-
-
-
-
-
