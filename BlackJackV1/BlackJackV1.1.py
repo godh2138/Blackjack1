@@ -1,13 +1,13 @@
 from random import randint
 import time
 from tkinter import *
-#from PIL import Image
+from PIL import Image
 import tkinter.font
 import os
 import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
-import ask
+# import ask
 
 #시작메뉴 추가
 money=2000
@@ -42,7 +42,8 @@ framedown.grid(row=2, column = 0)
 #배경색 변경
 text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
-'''
+
+
 imageA=tkinter.PhotoImage(file="C:\\A.png")
 image2=tkinter.PhotoImage(file="C:\\2.png")
 image3=tkinter.PhotoImage(file="C:\\3.png")
@@ -56,10 +57,8 @@ image10=tkinter.PhotoImage(file="C:\\10.png")
 imageJ=tkinter.PhotoImage(file="C:\\J.png")
 imageQ=tkinter.PhotoImage(file="C:\\Q.png")
 imageK=tkinter.PhotoImage(file="C:\\K.png")
-
-
-'''
-
+#초기화 카드
+imageR=tkinter.PhotoImage(file="C:\\r.png")
 
 
 #버튼 폰트및 글자크기, 버튼크기 변경
@@ -83,10 +82,10 @@ def moneydiscount():
 	discount=100
 	return money-discount'''
 #규칙을 보여주는 팝업창 추가
-rule_button=Button(text="규칙을 보시겠습니까?",command=Msgbox)
+rule_button=Button(frameup,text="규칙을 보시겠습니까?",command=Msgbox)
 rule_button.grid(row=1,column=1)
 
-question_button=Button(root,text="궁금한점", width=15,command=Questionbox)
+question_button=Button(frameup,text="궁금한점", width=15,command=Questionbox)
 question_button.grid(row=1,column=2)
 class deck(object):
 	deck={"A":4, 2:4, 3:4, 4:4, 5:4, 6:4, 7:4, 8:4, 9:4, 10:4, "J":4, "Q":4, "K":4}
@@ -104,6 +103,81 @@ class deck(object):
 			return self.cardsDict[i]
 		else:
 			return self.getCard()
+
+	#카드 사진저장
+def cardpic(card, count):
+	
+
+	if card == "A":
+		label=Label(framecard,image=imageA)
+		label.grid(row=0, column = count)
+		++count
+		
+	elif card == 2:
+		label=Label(framecard,image=image2)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 3:
+		label=Label(framecard,image=image3)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 4:
+		label=Label(framecard,image=image4)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 5:
+		label=Label(framecard,image=image5)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 6:
+		label=Label(framecard,image=image6)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 7:
+		label=Label(framecard,image=image7)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 8:
+		label=Label(framecard,image=image8)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 9:
+		label=Label(framecard,image=image9)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == 10:
+		label=Label(framecard,image=image10)
+		label.grid(row=0, column = count)
+		++count
+
+	elif card == "J":
+		label=Label(framecard,image=imageJ)
+		label.grid(row=0, column = count)
+		++count
+
+	elif  card == "Q":
+		label=Label(framecard,image=imageQ)
+		label.grid(row=0, column = count)
+		++count
+
+	elif  card == "K":
+		label=Label(framecard,image=imageK)
+		label.grid(row=0, column = count)
+		++count
+
+
+def resetcard(count):
+	global resetpoint
+	label = Label(framecard, image = imageR)
+	label.grid(row=0, column = resetpoint)
 
 
 
@@ -124,28 +198,46 @@ def hit(event):
 		global flag1
 		global flag2
 		global money
+		global count
+		global finish #게임종료후 hit 카드추가 안되게 수정
 		card=newDeck.getCard()
 		playerTotal=playerTotal+ cardValue(card)
 		
-		text.insert(END,"\n당신의 카드: "+str(card))
+		#카드그림 추가
+		if finish == 0:
+			count = count + 1
+			cardpic(card,count)
+		
+
+
 		
 		if playerTotal >21:
 			money-=100
 			text.insert(END,"\n당신은 패배했습니다! \n다시하려면 다시하기 버튼을 누르세요 남은 돈:")
 			text.insert(END,money)
 			flag1=False
+			finish = 1
+
 		elif playerTotal==21:
+			finish = 1
 			#give control to the computer, if he busts you win
+		
 			
 			flag2=True
 		else:
-			
 			action()
+		
 
 
 
 
 def replay(event):
+	global count
+	global resetpoint
+	resetpoint = 2
+	while(resetpoint <= count):
+		resetcard(card)
+		resetpoint = resetpoint + 1
 	main()
 
 
@@ -164,6 +256,7 @@ def stay(event):
 	global cardValue
 	global computerTotal
 	global card
+	global finish
 
 	if flag1:
 		
@@ -171,9 +264,9 @@ def stay(event):
 		while(computerTotal<21):
 			card=newDeck.getCard()
 			computerTotal+=cardValue(card)
-			
-			#이부분 총합을 보여주는것으로 변경요청
-			text.insert(END,"\n딜러의 카드총합: "+str(card))
+	
+			#딜러의 카드 총합으로 수정
+			text.insert(END,"\n딜러의 카드총합: "+str(computerTotal))
 			
 			if computerTotal>playerTotal and computerTotal<21:
 				
@@ -184,12 +277,13 @@ def stay(event):
 				if flag2:
 					
 					text.insert(END,"\n무승부!\n다시하려면 다시하기 버튼을 누르세요")
+					finish = 1
 				else:
-					
+					finish = 1
 					text.insert(END,"\n당신은 패배했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 
 			elif computerTotal> 21:
-				
+				finish = 1
 				text.insert(END,"\n당신은 승리했습니다!\n다시하려면 다시하기 버튼을 누르세요")
 
 
@@ -201,9 +295,14 @@ def main():
 	global card
 	global playerTotal
 	global computerTotal
+	global finish
+	global count
+
 	
 	text.delete('1.0',END)
 	text.insert(END,"\n카드 섞는중...")
+	count = 0
+	finish = 0
 
 	
 	newDeck=deck()
@@ -212,12 +311,16 @@ def main():
 
 	
 	card=newDeck.getCard()
+	cardpic(card,count)
+	count = count + 1
 
 	
 	
 
 	playerTotal=playerTotal+ cardValue(card)
 	card=newDeck.getCard()
+	cardpic(card,count)
+	
 
 	
 	
