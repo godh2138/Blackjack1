@@ -7,8 +7,10 @@ import os
 import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
+import sys
 # import ask
 
+sys.setrecursionlimit(10000)
 #시작메뉴 추가
 money=2000
 global newDeck
