@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BlackJackV1"
+    "\\.settings",
+    "\\BlackJackV1",
+    "\\__pycache__"
   ],
   "SelectedNode": "\\BlackJackV1\\BlackJackV1.1.py",
   "PreviewInSolutionExplorer": false
