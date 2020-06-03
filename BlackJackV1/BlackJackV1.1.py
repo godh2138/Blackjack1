@@ -1,3 +1,4 @@
+#조커픽 카드 게임 추가 예정
 from random import randint
 import time
 from tkinter import *
@@ -8,7 +9,7 @@ import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
-# import ask
+
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
@@ -46,49 +47,55 @@ text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
 
 
-imageA=tkinter.PhotoImage(file="C:\\A.png")
-image2=tkinter.PhotoImage(file="C:\\2.png")
-image3=tkinter.PhotoImage(file="C:\\3.png")
-image4=tkinter.PhotoImage(file="C:\\4.png")
-image5=tkinter.PhotoImage(file="C:\\5.png")
-image6=tkinter.PhotoImage(file="C:\\6.png")
-image7=tkinter.PhotoImage(file="C:\\7.png")
-image8=tkinter.PhotoImage(file="C:\\8.png")
-image9=tkinter.PhotoImage(file="C:\\9.png")
-image10=tkinter.PhotoImage(file="C:\\10.png")
-imageJ=tkinter.PhotoImage(file="C:\\J.png")
-imageQ=tkinter.PhotoImage(file="C:\\Q.png")
-imageK=tkinter.PhotoImage(file="C:\\K.png")
+imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/a.png")
+image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/2.png")
+image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/3.png")
+image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/4.png")
+image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/5.png")
+image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/6.png")
+image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/7.png")
+image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/8.png")
+image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/9.png")
+image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/10.png")
+imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/j.png")
+imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/q.png")
+imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/k.png")
+
 #초기화 카드
-imageR=tkinter.PhotoImage(file="C:\\r.png")
+imageR=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/r.png")
 
 
 #버튼 폰트및 글자크기, 버튼크기 변경
 hitbutton=Button(framedown,text="Hit",  activebackground="green", font=button_font, padx=100) 
 hitbutton.grid(row=0, column=0)
-
+hitbutton["fg"]="red"
+hitbutton["bg"]='pink'
 
 staybutton= Button(framedown,text="Stay",  activebackground="green", font=button_font, padx=100)
 staybutton.grid(row=0, column=1)
-
+staybutton["fg"]="blue"
+staybutton["bg"]="pink"
 replaybutton=Button(framedown,text='Replay',  activebackground="green", font=button_font, padx=100)
 replaybutton.grid(row=0, column=2)
+replaybutton["fg"]="yellow"
+replaybutton["bg"]="pink"
 def Msgbox():
 	tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
 def Questionbox():
 	tkinter.messagebox.askquestion("질문", "godh2138@gmail.com 로 이메일 주세요.")
-	'''
-def moneydiscount():
-	global money
-
-	discount=100
-	return money-discount'''
+#def Gamechange(event):
+	#play_game()
 #규칙을 보여주는 팝업창 추가
-rule_button=Button(frameup,text="규칙을 보시겠습니까?",command=Msgbox)
+rule_button=Button(text="규칙을 보시겠습니까?",command=Msgbox)
 rule_button.grid(row=1,column=1)
+rule_button["fg"]="red"
+rule_button["bg"]="white"
 
-question_button=Button(frameup,text="궁금한점", width=15,command=Questionbox)
+question_button=Button(root,text="질문 있으십니까?", width=15,command=Questionbox)
 question_button.grid(row=1,column=2)
+question_button["fg"]="red"
+question_button["bg"]="white"
+
 class deck(object):
 	deck={"A":4, 2:4, 3:4, 4:4, 5:4, 6:4, 7:4, 8:4, 9:4, 10:4, "J":4, "Q":4, "K":4}
 	cardsDict={1:"A", 2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 11:"J", 12:"Q", 13:"K" }
@@ -291,6 +298,7 @@ def stay(event):
 
 
 def main():
+
 	global newDeck
 	global flag1
 	global flag2
@@ -353,3 +361,5 @@ staybutton.bind("<Button-1>",stay)
 hitbutton.bind("<Button-1>",hit)
 replaybutton.bind("<Button-1>",replay)
 root.mainloop()
+
+
