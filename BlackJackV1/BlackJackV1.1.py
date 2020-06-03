@@ -569,4 +569,3 @@ replaybutton.bind("<Button-1>",replay)
 root.mainloop()
 
 
-#
