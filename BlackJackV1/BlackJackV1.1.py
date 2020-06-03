@@ -1,3 +1,4 @@
+#조커게임과 블랙잭 합쳐짐
 from random import randint
 import time
 from tkinter import *
@@ -49,22 +50,22 @@ text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
 
 
-imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/a.png")
-image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/2.png")
-image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/3.png")
-image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/4.png")
-image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/5.png")
-image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/6.png")
-image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/7.png")
-image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/8.png")
-image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/9.png")
-image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/10.png")
-imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/j.png")
-imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/q.png")
-imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/k.png")
+imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/9.png")
+image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/2.png")
+image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/3.png")
+image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/4.png")
+image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/5.png")
+image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/6.png")
+image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/7.png")
+image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/8.png")
+image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/9.png")
+image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/10.png")
+imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/j.png")
+imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/q.png")
+imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/k.png")
 
 #초기화 카드
-imageR=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack4/r.png")
+imageR=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/r.png")
 
 
 #버튼 폰트및 글자크기, 버튼크기 변경
@@ -81,17 +82,42 @@ replaybutton=Button(framedown,text='Replay',  activebackground="green", font=but
 replaybutton.grid(row=0, column=2)
 replaybutton["fg"]="yellow"
 replaybutton["bg"]="pink"
+def play_game():
+    
+     deck=make_deck()
+     shuffle_deck(deck)
+     tmp=deal_cards(deck)
 
+     dealer=tmp[0]
+     human=tmp[1]
+
+     print("Hello. My name is Robot and I am the dealer.")
+     print("Welcome to my card game!")
+     print("Your current deck of cards is:"+str(tmp[1]))
+     print("Do not worry. I cannot see the order of your cards")
+     
+     print("Now discard all the pairs from your deck. I will do the same.")
+     wait_for_player()
+     
+     dealer=remove_pairs(tmp[0])
+     human=remove_pairs(tmp[1])
+
+     print('Your current deck of cards is: ')
+     
+     print_deck(human)
+     get_valid_input()
+def Joker_start():
+    play_game()
 
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
 def Questionbox():
     tkinter.messagebox.askquestion("질문", "godh2138@gmail.com 로 이메일 주세요.")
 def Gamechange(): 
-    
-    play_game()
     root.quit()
     root.destroy()
+    Joker_start()
+  
 changebutton=Button(framedown2,text='change',  activebackground="green", font=button_font, padx=100,command=Gamechange)
 changebutton.grid(row=0, column=3)
 changebutton["fg"]="yellow"
@@ -110,9 +136,7 @@ question_button["bg"]="white"
 #조커픽 함수 넣음
 
 def wait_for_player():
-    '''()->None
-    Pauses the program until the user presses enter
-    '''
+    
     try:
          input("\nPress enter to continue. ")
          print()
@@ -121,10 +145,7 @@ def wait_for_player():
 
 
 def make_deck():
-    '''()->list of str
-        Returns a list of strings representing the playing deck,
-        with one queen missing.
-    '''
+    
     deck=[]
     suits = ['\u2660', '\u2661', '\u2662', '\u2663']
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
@@ -136,9 +157,7 @@ def make_deck():
     return deck
 
 def shuffle_deck(deck):
-    '''(list of str)->None
-       Shuffles the given list of strings representing the playing deck    
-    '''
+    
     random.shuffle(deck)
 
 #####################################
@@ -262,32 +281,6 @@ def get_valid_input():
          print('Ups. You do not have any more cards.\n Congratulations. You, Human, win.')
 
 
-def play_game():
-     '''()->None
-     This function plays the game'''
-    
-     deck=make_deck()
-     shuffle_deck(deck)
-     tmp=deal_cards(deck)
-
-     dealer=tmp[0]
-     human=tmp[1]
-
-     print("Hello. My name is Robot and I am the dealer.")
-     print("Welcome to my card game!")
-     print("Your current deck of cards is:"+str(tmp[1]))
-     print("Do not worry. I cannot see the order of your cards")
-     
-     print("Now discard all the pairs from your deck. I will do the same.")
-     wait_for_player()
-     
-     dealer=remove_pairs(tmp[0])
-     human=remove_pairs(tmp[1])
-
-     print('Your current deck of cards is: ')
-     
-     print_deck(human)
-     get_valid_input()
 
 
 # main
@@ -554,14 +547,6 @@ def main():
 
 if __name__=='__main__':
     main()
-
-#elif __name__=='__card__':
-   # play_game()
-##image=tkinter.PhotoImage(file="C:\\Black.gif")
-#label=tkinter.Label(root,image=image)
-#label.grid(row = 4, column = 0)
-
-
 
 staybutton.bind("<Button-1>",stay)
 hitbutton.bind("<Button-1>",hit)
