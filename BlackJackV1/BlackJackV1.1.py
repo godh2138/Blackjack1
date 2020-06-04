@@ -9,7 +9,8 @@ import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
-#from card import *
+from card import *
+
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
@@ -52,21 +53,21 @@ text.grid(row=0, column = 0)
 
 
 
-imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/9.png")
-image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/2.png")
-image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/3.png")
-image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/4.png")
-image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/5.png")
-image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/6.png")
-image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/7.png")
-image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/8.png")
-image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/9.png")
-image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/10.png")
-imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/j.png")
-imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/q.png")
-imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/k.png")
+imageA=tkinter.PhotoImage(file="C:\\A.png")
+image2=tkinter.PhotoImage(file="C:\\2.png")
+image3=tkinter.PhotoImage(file="C:\\3.png")
+image4=tkinter.PhotoImage(file="C:\\4.png")
+image5=tkinter.PhotoImage(file="C:\\5.png")
+image6=tkinter.PhotoImage(file="C:\\6.png")
+image7=tkinter.PhotoImage(file="C:\\7.png")
+image8=tkinter.PhotoImage(file="C:\\8.png")
+image9=tkinter.PhotoImage(file="C:\\9.png")
+image10=tkinter.PhotoImage(file="C:\\10.png")
+imageJ=tkinter.PhotoImage(file="C:\\J.png")
+imageQ=tkinter.PhotoImage(file="C:\\Q.png")
+imageK=tkinter.PhotoImage(file="C:\\K.png")
 #초기화 카드
-imageR=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/r.png")
+imageR=tkinter.PhotoImage(file="C:\\r.png")
 
 
 #버튼 폰트및 글자크기, 버튼크기 변경
@@ -107,8 +108,8 @@ def play_game():
      human=remove_pairs(tmp[1])
      dealer=tmp[0]
      human=tmp[1]
-     message1="Hello. My name is Robot and I am the dealer.\nWelcome to my card game!\nYour current deck of cards is:\n"+str(tmp[1])
-     "\nDo not worry. I cannot see the order of your cards\nNow discard all the pairs from your deck. I will do the same.\n게임시작버튼을 누르세요"
+     message1="안녕. 나는 딜러를 맡게된 로봇이야. 그리고 내 카드게임에 온걸 환영해!\n너의 현재 카드는:\n"+str(tmp[1])
+     "\n걱정하지마. 나는너의 다른카드들은 보이지않아\n이제 짝이 맞는 카드들을 버려야해. 게임을 시작하자.\n게임시작버튼을 누르세요"
      
      w=Label(canvas,padx=10,justify=LEFT,font=button_font,text=message1).pack()
     
@@ -158,32 +159,49 @@ question_button["bg"]="white"
 #조커픽 함수 넣음
 
 
+import random
+
+def wait_for_player():
+    '''()->None
+    사용자가 Enter 키를 누를 때까지 프로그램 일시 중지
+    '''
+    try:
+         input("\n 엔터를 누르셔서 게임을 계속해주세요")
+         print()
+    except SyntaxError:
+         pass
+
+
 def make_deck():
-    
+    '''()->list of str
+        여왕이 없는채로 플레이할 덱을 나타내는 문자열을 반환
+    '''
     deck=[]
     suits = ['\u2660', '\u2661', '\u2662', '\u2663']
     ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
     for suit in suits:
         for rank in ranks:
             deck.append(rank+suit) #덱에 카드를추가하는 과정입니다.
-    deck.remove('Q\u2663') # remove a queen as the game requires
+    deck.remove('Q\u2663') # 게임에서 여왕을 제거한다.
     
     return deck
 
 def shuffle_deck(deck):
-    
+    '''(list of str)->None
+      플레이할 덱을 나타내는 목록을 섞으시오    
+    '''
     random.shuffle(deck)
 
 #####################################
 
 def deal_cards(deck):
     
-     a={} #need to use dictionary
+     a={} #딕셔너리 사용필요
      dealer=[]
      human=[]
      for i in range(len(deck)):
          if i%2==0:
-            dealer.append(deck[i]) #append will add each element of the deck
+            dealer.append(deck[i]) #덱의 각 요소들이 추가된다.
          else:
             human.append(deck[i])
      return (dealer, human)
@@ -191,7 +209,7 @@ def deal_cards(deck):
             
 def remove_pairs(deck):
   
-    a={} #need to use dictionary
+    a={} #딕셔너리 사용필요
     no_pairs = []
     for x in deck:
         if x[0] not in a:
@@ -208,18 +226,25 @@ def remove_pairs(deck):
             a[x[0]] = 0
     random.shuffle(no_pairs)
     return no_pairs
+    # 현재, 덱에는 각 번호의 카드가 한장씩 있어야한다.
 
 
-###################################
-'''def print_deck(deck):
-    global canvas
-    list4=' '.join(deck)
-    print(list4)
-    
-    #text.insert(END,join(deck))'''
+def print_deck(deck):
+    '''
+    (list)-None
+    공백을 구분하여 덱의 카드 요소들을 출력
+    '''
+
+    print(' '.join(deck))
     
 def get_valid_input():
+     '''
+     (int)->int
+     사용자가 지정한 정수를 최소 1부터 최대 n까지 반환
+     사용자가 [1,n] 범위를 벗어나는 숫자를 지정하는한 범위안에 숫자를 지정할때까지 계속 요청
      
+     Precondition: num>=1
+     '''
      deck=make_deck()
      shuffle_deck(deck)
      tmp=deal_cards(deck)
@@ -230,49 +255,49 @@ def get_valid_input():
      dealer=remove_pairs(dealer)
      human=remove_pairs(human)
 
-     while len(human)>1 or len(dealer)>1: #When there are multiple cards in each player's list
+     while len(human)>1 or len(dealer)>1: #각 플레이어의 목록에 카드가 여러개 있는경우
          
-         print('I have '+str(len(dealer))+' cards. If 1 stands for my first card and '+str(len(dealer))+' for my last card, which of my cards would you like?')
+         print('나는 '+str(len(dealer))+' 개의 카드를 가지고있다. 나는 1번부터 '+str(len(dealer))+' 번 카드를 가지고있는데, 내 카드중 어느것을 원하는가?')
          #num=0
-         num=input('Give me an integer between 1 and '+str(len(dealer))+': ')
+         num=input('1 이랑 '+str(len(dealer))+' 사이의 숫자를 주십시오 : ')
          if int(num) < 1 or int(num)>len(dealer):
-             num=input('Invalid number. Please enter integer between 1 and '+str(len(dealer)))
+             num=input('잘못된 번호입니다. 1이랑 '+str(len(dealer)+'사이의 숫자를 입력해주세요'))
          if num==1:
-             print ('You asked for my '+str(int(num))+'st','card.')
+             print ('너는 나의 '+str(int(num))+'첫번째','카드를 요청했다.')
          elif num==2:
-             print('You asked for my '+str(int(num))+'nd','card.')
+             print ('너는 나의 '+str(int(num))+'두번째','카드를 요청했다.')
          elif num==3:
-             print('You asked for my '+str(int(num))+'rd','card.')
+            print ('너는 나의 '+str(int(num))+'세번째','카드를 요청했다.')
          else:
-             print('You asked for my '+str(int(num))+'th','card.')
-         print('Here it is. It is '+str(dealer[int(num)-1]))
+             print ('너는 나의 '+str(int(num))+'네번째','카드를 요청했다.')
+         print('여기 '+str(dealer[int(num)-1]+'이다.'))
          print('With '+str(dealer[int(num)-1]),' added,')
-         print('your current deck of cards are: ')
+         print('당신의 현재 카드는: ')
          human.append(dealer[int(num)-1])
          dealer.remove(dealer[int(num)-1])
          print_deck(human)
-         print('And after discarding pairs and shuffling, your deck is:')
+         print('짝이 맞는 카드를 버린후 너의 카드는:')
          print_deck(remove_pairs(human))
          wait_for_player()
 
          print('My turn.')
          y=random.randint(1,len(remove_pairs(human)))
          if y==1:
-             print ('I took your '+str(int(y))+'st','card.')
+             print ('나는 너의 '+str(int(y))+'첫번쨰','카드를 가져가겠다.')
          elif y==2:
-             print('I took your '+str(int(y))+'nd','card.')
+             print ('나는 너의 '+str(int(y))+'두번쨰','카드를 가져가겠다.')
          elif y==3:
-             print('I took your '+str(int(y))+'rd','card.')
+              print ('나는 너의 '+str(int(y))+'세번쨰','카드를 가져가겠다.')
          else:
-             print('I took your '+str(int(y))+'th','card.')
+              print ('나는 너의 '+str(int(y))+'네번쨰','카드를 가져가겠다.')
 
          dealer.append(human[y-1])
          human.remove(human[y-1])
          dealer=remove_pairs(dealer)
          human=remove_pairs(human)
-         print('your current deck of cards are: ')
+         print('당신의 현재 카드는: ')
          print_deck(human)
-         print('And after discarding pairs and shuffling, your deck is:')
+         print('짝이 맞는 카드를 버린후 너의 카드는:')
          print_deck(remove_pairs(human))
          wait_for_player()
 
@@ -282,10 +307,10 @@ def get_valid_input():
              break
 
      if len(remove_pairs(dealer))<1:
-         print('Ups. I do not have any more cards. \n You lost. I, robot, win.')        
+         print('나는 더이상의 카드가 없다.. \n 플레이어 패배')        
 
      if len(remove_pairs(human))<1:
-         print('Ups. You do not have any more cards.\n Congratulations. You, Human, win.')
+         print('너는 더이상의 카드가 없다..\n 플레이어 승리')
 
 
 
@@ -493,10 +518,9 @@ def stay(event):
 
     if flag1:
         
-        text2.insert(END,"\n딜러의 2번째 카드: "+str(card))
+        text.insert(END,"\n딜러의 2번째 카드: "+str(card))
         while(computerTotal<21):
-            card=newDeck.getCard()
-            computerTotal+=cardValue(card)
+          
     
             #딜러의 카드 총합으로 수정
             text.insert(END,"\n딜러의 카드총합: "+str(computerTotal))
