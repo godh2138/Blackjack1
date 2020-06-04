@@ -15,8 +15,10 @@ sys.setrecursionlimit(10000)
 #시작메뉴 추가
 money=2000
 global newDeck
+
 root=Tk()
 root.wm_title("블랙잭") #한글로 제목 수정
+
 
 #게임내 폰트및 크기, 버튼 폰트및 크기 수정
 game_font = tkinter.font.Font(family="맑은 고딕", size=10)
@@ -26,7 +28,6 @@ button_font = tkinter.font.Font(family="궁서체", size=10)
 
 #root.resizable(False, False) #게임 사이즈 변경 불가
 root.minsize(300,150) #사이즈 수정필요
-
 
 #Creating 2 frames
 
@@ -50,6 +51,7 @@ text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
 
 
+
 imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/9.png")
 image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/2.png")
 image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/3.png")
@@ -63,7 +65,6 @@ image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/10.png")
 imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/j.png")
 imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/q.png")
 imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/k.png")
-
 #초기화 카드
 imageR=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack6/BlackJackV1/r.png")
 
@@ -82,32 +83,46 @@ replaybutton=Button(framedown,text='Replay',  activebackground="green", font=but
 replaybutton.grid(row=0, column=2)
 replaybutton["fg"]="yellow"
 replaybutton["bg"]="pink"
-def play_game():
+
+def next_game():
     
+    canvas.destroy()
+    canvas.quit()
+
+
+
+
+
+def play_game():
+     global canvas
+     canvas=Tk() #조커픽 tk창
+     canvas.wm_title("조커픽")
+     canvas.minsize(500, 500)
+     
      deck=make_deck()
      shuffle_deck(deck)
      tmp=deal_cards(deck)
 
-     dealer=tmp[0]
-     human=tmp[1]
-
-     print("Hello. My name is Robot and I am the dealer.")
-     print("Welcome to my card game!")
-     print("Your current deck of cards is:"+str(tmp[1]))
-     print("Do not worry. I cannot see the order of your cards")
-     
-     print("Now discard all the pairs from your deck. I will do the same.")
-     wait_for_player()
-     
      dealer=remove_pairs(tmp[0])
      human=remove_pairs(tmp[1])
-
-     print('Your current deck of cards is: ')
+     dealer=tmp[0]
+     human=tmp[1]
+     message1="Hello. My name is Robot and I am the dealer.\nWelcome to my card game!\nYour current deck of cards is:\n"+str(tmp[1])
+     "\nDo not worry. I cannot see the order of your cards\nNow discard all the pairs from your deck. I will do the same.\n게임시작버튼을 누르세요"
      
-     print_deck(human)
+     w=Label(canvas,padx=10,justify=LEFT,font=button_font,text=message1).pack()
+    
+     b1=Button(canvas,text="게임을 실행하기",command=next_game)
+     b1.pack(side=BOTTOM,padx=10)
+     #w2=Label(canvas,padx=10,justify=LEFT,font=button_font,text=message1).pack()
+     
+     
+     canvas.mainloop()
      get_valid_input()
+     
 def Joker_start():
     play_game()
+    
 
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
@@ -117,12 +132,17 @@ def Gamechange():
     root.quit()
     root.destroy()
     Joker_start()
-  
+
+
+
+
+
+
 changebutton=Button(framedown2,text='change',  activebackground="green", font=button_font, padx=100,command=Gamechange)
-changebutton.grid(row=0, column=3)
+changebutton.grid(row=0, column=2)
 changebutton["fg"]="yellow"
 changebutton["bg"]="pink"
-#규칙을 보여주는 팝업창 추가
+#규칙을 보여주는 팝업창 추가(블랙잭)
 rule_button=Button(text="규칙을 보시겠습니까?",command=Msgbox)
 rule_button.grid(row=1,column=1)
 rule_button["fg"]="red"
@@ -133,15 +153,9 @@ question_button.grid(row=1,column=2)
 question_button["fg"]="red"
 question_button["bg"]="white"
 
-#조커픽 함수 넣음
 
-def wait_for_player():
-    
-    try:
-         input("\nPress enter to continue. ")
-         print()
-    except SyntaxError:
-         pass
+
+#조커픽 함수 넣음
 
 
 def make_deck():
@@ -194,25 +208,21 @@ def remove_pairs(deck):
             a[x[0]] = 0
     random.shuffle(no_pairs)
     return no_pairs
-    # Now, the deck should only have one card of each number
 
 
-def print_deck(deck):
-    '''
-    (list)-None
-    Prints elements of a given list deck separated by a space
-    '''
 
-    print(' '.join(deck))
+
+
+###################################
+'''def print_deck(deck):
+    global canvas
+    list4=' '.join(deck)
+    print(list4)
+    
+    #text.insert(END,join(deck))'''
     
 def get_valid_input():
-     '''
-     (int)->int
-     Returns an integer given by the user that is at least 1 and at most n.
-     Keeps on asking for valid input as long as the user gives integer outside of the range [1,n]
      
-     Precondition: num>=1
-     '''
      deck=make_deck()
      shuffle_deck(deck)
      tmp=deal_cards(deck)
@@ -224,7 +234,7 @@ def get_valid_input():
      human=remove_pairs(human)
 
      while len(human)>1 or len(dealer)>1: #When there are multiple cards in each player's list
-
+         
          print('I have '+str(len(dealer))+' cards. If 1 stands for my first card and '+str(len(dealer))+' for my last card, which of my cards would you like?')
          #num=0
          num=input('Give me an integer between 1 and '+str(len(dealer))+': ')
@@ -286,6 +296,24 @@ def get_valid_input():
 # main
 
 #play_game()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -468,7 +496,7 @@ def stay(event):
 
     if flag1:
         
-        text.insert(END,"\n딜러의 2번째 카드: "+str(card))
+        text2.insert(END,"\n딜러의 2번째 카드: "+str(card))
         while(computerTotal<21):
             card=newDeck.getCard()
             computerTotal+=cardValue(card)
@@ -553,4 +581,4 @@ hitbutton.bind("<Button-1>",hit)
 replaybutton.bind("<Button-1>",replay)
 root.mainloop()
 
-
+#root.delete(ALL) -> tkinter 글씨들 지우기
