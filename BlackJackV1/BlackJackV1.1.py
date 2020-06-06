@@ -57,8 +57,6 @@ text.grid(row=0, column = 0)
 
 
 
-
-
 imageA=tkinter.PhotoImage(file="C:\\A.png")
 image2=tkinter.PhotoImage(file="C:\\2.png")
 image3=tkinter.PhotoImage(file="C:\\3.png")
@@ -72,8 +70,6 @@ image10=tkinter.PhotoImage(file="C:\\10.png")
 imageJ=tkinter.PhotoImage(file="C:\\J.png")
 imageQ=tkinter.PhotoImage(file="C:\\Q.png")
 imageK=tkinter.PhotoImage(file="C:\\K.png")
-#초기화 카드
-imageR=tkinter.PhotoImage(file="C:\\r.png")
 
 #메시지, 질문, 게임체인저
 def Msgbox():
@@ -821,12 +817,6 @@ def cardpic(card, count):
         ++count
 
 
-def resetcard(count):
-    global resetpoint
-    label = Label(framecard, image = imageR)
-    label.grid(row=0, column = resetpoint)
-
-
 
 def cardValue(card):
     global playerTotal
@@ -881,10 +871,11 @@ def hit(event):
 def replay(event):
     global count
     global resetpoint
+    global framecard
     resetpoint = 2
-    while(resetpoint <= count):
-        resetcard(card)
-        resetpoint = resetpoint + 1
+    framecard.destroy()
+    framecard=Frame(root,width=150,height=150)
+    framecard.grid(row=1, column = 0)
     main()
 
 
