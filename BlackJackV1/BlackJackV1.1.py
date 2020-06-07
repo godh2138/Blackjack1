@@ -53,6 +53,7 @@ text.grid(row=0, column = 0)
 
 
 #파일 경로 재지정
+
 imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/a.png")
 image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/2.png")
 image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/3.png")
@@ -66,6 +67,7 @@ image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/10.png")
 imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/j.png")
 imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/q.png")
 imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/k.png")
+
 #메시지, 질문, 게임체인저
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
@@ -204,11 +206,11 @@ def make_deck():
     '''
     deck=[]
     suits = ['\u2660', '\u2661', '\u2662', '\u2663']
-    ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
+    ranks = ['2','3','4','5','6','7','8','9','10','J','Joker','K','A']
     for suit in suits:
         for rank in ranks:
             deck.append(rank+suit) #덱에 카드를추가하는 과정입니다.
-    deck.remove('Q\u2663') # 게임에서 여왕을 제거한다.
+    deck.remove('Joker\u2663') # 게임에서 조커을 제거한다.
     
     return deck
 
