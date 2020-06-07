@@ -7,6 +7,7 @@ from tkinter import *
 import os
 import sys
 global newDeck
+
 root=Tk()
 root.wm_title("BlackJack")
 #Creating a window
