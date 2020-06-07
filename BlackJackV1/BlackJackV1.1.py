@@ -10,7 +10,7 @@ from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
 from card import *
-
+#
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
