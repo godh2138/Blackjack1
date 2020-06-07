@@ -198,17 +198,6 @@ def wait_for_player():
 
 import random
 
-def wait_for_player():
-    '''()->None
-    사용자가 Enter 키를 누를 때까지 프로그램 일시 중지
-    '''
-    try:
-         input("\n 엔터를 누르셔서 게임을 계속해주세요")
-         print()
-    except SyntaxError:
-         pass
-
-
 def make_deck():
     '''()->list of str
         여왕이 없는채로 플레이할 덱을 나타내는 문자열을 반환
