@@ -12,6 +12,7 @@ import tkinter.messagebox
 import sys
 import collections #collections 추가
 
+
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
 money=2000
@@ -53,21 +54,20 @@ text.grid(row=0, column = 0)
 
 
 #파일 경로 재지정
-
 imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/a.png")
-image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/2.png")
-image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/3.png")
-image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/4.png")
-image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/5.png")
-image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/6.png")
-image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/7.png")
-image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/8.png")
-image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/9.png")
-image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/10.png")
-imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/j.png")
-imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/q.png")
-imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/k.png")
 
+image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/2.png")
+image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/3.png")
+image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/4.png")
+image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/5.png")
+image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/6.png")
+image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/7.png")
+image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/8.png")
+image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/9.png")
+image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/10.png")
+imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/j.png")
+imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/q.png")
+imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack3/k.png")
 #메시지, 질문, 게임체인저
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
@@ -153,9 +153,9 @@ def play_game():
      human=tmp[1]
      message1="도둑잡기 (조커 픽) 카드 게임에  오신것을 환영합니다.\n플레이어의 현재 카드는: \n게임 실행하기 버튼을 누르세요\n"+str(tmp[1])
      "\n 게임진행하기버튼을 누르세요"
-     
-     w=Label(canvas,padx=10,justify=CENTER,font=button_font,text=message1).pack()
-    
+     photo=PhotoImage(file="C:/Users/user/git/Blackjack3/joker.png")
+     w=Label(canvas,padx=10,justify=LEFT,font=button_font,fg="blue",text=message1).pack()
+     w2=Label(canvas,image=photo).pack(side="bottom")
      b1=Button(canvas,text="게임을 실행하기",command=next_game)
      b1.pack(side=BOTTOM,padx=10)
      #w2=Label(canvas,padx=10,justify=LEFT,font=button_font,text=message1).pack()
@@ -188,9 +188,7 @@ changebutton["bg"]="pink"
 #조커픽 함수 넣음
 
 def wait_for_player():
-    '''()->None
-    사용자가 Enter 키를 누를 때까지 프로그램 일시 중지
-    '''
+    
     try:
          input("\n 엔터를 누르셔서 게임을 계속해주세요")
          print()
@@ -201,23 +199,19 @@ def wait_for_player():
 import random
 
 def make_deck():
-    '''()->list of str
-        여왕이 없는채로 플레이할 덱을 나타내는 문자열을 반환
-    '''
+   
     deck=[]
     suits = ['\u2660', '\u2661', '\u2662', '\u2663']
     ranks = ['2','3','4','5','6','7','8','9','10','J','Joker','K','A']
     for suit in suits:
         for rank in ranks:
             deck.append(rank+suit) #덱에 카드를추가하는 과정입니다.
-    deck.remove('Joker\u2663') # 게임에서 조커을 제거한다.
+    deck.remove('Joker\u2663') # 게임에서 여왕을 제거한다.
     
     return deck
 
 def shuffle_deck(deck):
-    '''(list of str)->None
-      플레이할 덱을 나타내는 목록을 섞으시오    
-    '''
+    
     random.shuffle(deck)
 
 #####################################
@@ -258,21 +252,11 @@ def remove_pairs(deck):
 
 
 def print_deck(deck):
-    '''
-    (list)-None
-    공백을 구분하여 덱의 카드 요소들을 출력
-    '''
-
+    
     print(' '.join(deck))
     
 def get_valid_input():
-     '''
-     (int)->int
-     사용자가 지정한 정수를 최소 1부터 최대 n까지 반환
-     사용자가 [1,n] 범위를 벗어나는 숫자를 지정하는한 범위안에 숫자를 지정할때까지 계속 요청
-     
-     Precondition: num>=1
-     '''
+    
      deck=make_deck()
      shuffle_deck(deck)
      tmp=deal_cards(deck)
