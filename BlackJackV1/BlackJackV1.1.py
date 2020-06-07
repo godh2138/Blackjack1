@@ -1,5 +1,5 @@
 #조커게임과 블랙잭 합쳐짐
-#원카드 게임 추가 2020.6.5 
+#원카드 게임 추가 2020.6.5 .
 from random import randint
 import time
 from tkinter import *
@@ -10,7 +10,7 @@ import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
-from card import *
+
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
