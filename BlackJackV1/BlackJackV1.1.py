@@ -1,4 +1,5 @@
 #조커게임과 블랙잭 합쳐짐
+#원카드 게임 추가 2020.6.5 
 from random import randint
 import time
 from tkinter import *
@@ -9,12 +10,7 @@ import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
-import collections
 from card import *
-
-
-
-
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
@@ -71,6 +67,7 @@ imageJ=tkinter.PhotoImage(file="C:\\J.png")
 imageQ=tkinter.PhotoImage(file="C:\\Q.png")
 imageK=tkinter.PhotoImage(file="C:\\K.png")
 
+imageR=tkinter.PhotoImage(file="C:\\r.png")
 #메시지, 질문, 게임체인저
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
@@ -189,6 +186,19 @@ changebutton["bg"]="pink"
 
 
 #조커픽 함수 넣음
+
+def wait_for_player():
+    '''()->None
+    사용자가 Enter 키를 누를 때까지 프로그램 일시 중지
+    '''
+    try:
+         input("\n 엔터를 누르셔서 게임을 계속해주세요")
+         print()
+    except SyntaxError:
+         pass
+
+
+import random
 
 def wait_for_player():
     '''()->None
