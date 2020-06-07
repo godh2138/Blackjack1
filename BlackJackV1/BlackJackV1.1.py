@@ -10,7 +10,7 @@ import sys
 from tkinter.constants import INSERT
 import tkinter.messagebox
 import sys
-
+import collections #collections 추가
 
 sys.setrecursionlimit(10000)
 #시작메뉴 추가
@@ -52,22 +52,20 @@ text=Text(frameup,bg='black',fg='white',font=game_font)
 text.grid(row=0, column = 0)
 
 
-
-imageA=tkinter.PhotoImage(file="C:\\A.png")
-image2=tkinter.PhotoImage(file="C:\\2.png")
-image3=tkinter.PhotoImage(file="C:\\3.png")
-image4=tkinter.PhotoImage(file="C:\\4.png")
-image5=tkinter.PhotoImage(file="C:\\5.png")
-image6=tkinter.PhotoImage(file="C:\\6.png")
-image7=tkinter.PhotoImage(file="C:\\7.png")
-image8=tkinter.PhotoImage(file="C:\\8.png")
-image9=tkinter.PhotoImage(file="C:\\9.png")
-image10=tkinter.PhotoImage(file="C:\\10.png")
-imageJ=tkinter.PhotoImage(file="C:\\J.png")
-imageQ=tkinter.PhotoImage(file="C:\\Q.png")
-imageK=tkinter.PhotoImage(file="C:\\K.png")
-
-imageR=tkinter.PhotoImage(file="C:\\r.png")
+#파일 경로 재지정
+imageA=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/a.png")
+image2=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/2.png")
+image3=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/3.png")
+image4=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/4.png")
+image5=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/5.png")
+image6=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/6.png")
+image7=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/7.png")
+image8=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/8.png")
+image9=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/9.png")
+image10=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/10.png")
+imageJ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/j.png")
+imageQ=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/q.png")
+imageK=tkinter.PhotoImage(file="C:/Users/user/git/Blackjack2/k.png")
 #메시지, 질문, 게임체인저
 def Msgbox():
     tkinter.messagebox.showinfo("게임룰","딜러와 플레이어 중 카드의 합이 21 또는 21에 가장 가까운 숫자를 가지는 쪽이 이기는 게임입니다. \nAce는 1 또는 11로 계산합니다. \nKing, Queen, Jack은 각각 10으로 계산합니다.")
@@ -151,10 +149,10 @@ def play_game():
      human=remove_pairs(tmp[1])
      dealer=tmp[0]
      human=tmp[1]
-     message1="안녕. 나는 딜러를 맡게된 로봇이야. 그리고 내 카드게임에 온걸 환영해!\n너의 현재 카드는:\n"+str(tmp[1])
-     "\n걱정하지마. 나는너의 다른카드들은 보이지않아\n이제 짝이 맞는 카드들을 버려야해. 게임을 시작하자.\n게임시작버튼을 누르세요"
+     message1="도둑잡기 (조커 픽) 카드 게임에  오신것을 환영합니다.\n플레이어의 현재 카드는: \n게임 실행하기 버튼을 누르세요\n"+str(tmp[1])
+     "\n 게임진행하기버튼을 누르세요"
      
-     w=Label(canvas,padx=10,justify=LEFT,font=button_font,text=message1).pack()
+     w=Label(canvas,padx=10,justify=CENTER,font=button_font,text=message1).pack()
     
      b1=Button(canvas,text="게임을 실행하기",command=next_game)
      b1.pack(side=BOTTOM,padx=10)
